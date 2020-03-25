@@ -11,7 +11,7 @@ def radial_laplacian_boundary_r0(Nr, rm):
       \/ f(r) = --- ---- (r f)
                  r  dr^2
 
-    on a non-equidistant radial grid. 
+    on a non-equidistant radial grid.
     It is assumed that f satisfies the boundary condition
 
         f(r --> 0) = 0             r=0 <-> z=1
@@ -30,7 +30,7 @@ def radial_laplacian_boundary_r0(Nr, rm):
     # number of radial grid points
     n = Nr
     # grid is equidistant in z-coordinates
-    k = np.array(range(1,n+1))
+    k = np.array(list(range(1,n+1)))
     # grid points on interval [-1,1]
     zr = k/(n+1.0)
     xr = np.cos(zr * np.pi)
@@ -81,13 +81,13 @@ def radial_laplacian_boundary_r0(Nr, rm):
         D1[i,i-3:i+4] = A7c1
         D2[i,i-3:i+4] = A7c2
     # Continue with centered seven-point formulae for i=n-3,n-2,n-1 assuming that
-    # at z=1 (i.e. r=0) the boundary conditions f(n)=0, f(n+1)=0, f(n+2)=0 are fulfilled. 
+    # at z=1 (i.e. r=0) the boundary conditions f(n)=0, f(n+1)=0, f(n+2)=0 are fulfilled.
     for i in range(n-3, n):
         D1[i,i-3:] = A7c1[:n-i+3]
         D2[i,i-3:] = A7c2[:n-i+3]
 
     # finite difference formula converts differential operators into matrices
-    
+
     # radial part of Laplacian
     #  __2        1  d^2
     #  \/ f(r) = --- ---- (r f)
@@ -108,7 +108,7 @@ def radial_laplacian_boundary_rinf(Nr, rm):
       \/ f(r) = --- ---- (r f)
                  r  dr^2
 
-    on a non-equidistant radial grid. 
+    on a non-equidistant radial grid.
     It is assumed that f satisfies the boundary condition
 
         f(r --> oo) = 0             r=inf <-> z=0
@@ -127,7 +127,7 @@ def radial_laplacian_boundary_rinf(Nr, rm):
     # number of radial grid points
     n = Nr
     # grid is equidistant in z-coordinates
-    k = np.array(range(1,n+1))
+    k = np.array(list(range(1,n+1)))
     # grid points on interval [-1,1]
     zr = k/(n+1.0)
     xr = np.cos(zr * np.pi)
@@ -181,7 +181,7 @@ def radial_laplacian_boundary_rinf(Nr, rm):
     D2[n-1,n-7:] = np.array([ +274.0, -1944.0, +5940.0, -10160.0, +10530.0, -6264.0, +1624.0])/(360.0*h**2)
 
     # finite difference formula converts differential operators into matrices
-    
+
     # radial part of Laplacian
     #  __2        1  d^2
     #  \/ f(r) = --- ---- (r f)
@@ -193,5 +193,3 @@ def radial_laplacian_boundary_rinf(Nr, rm):
     lap_rad =  np.dot(np.diag(1.0/r), np.dot(d2dr2, np.diag(r)))
 
     return lap_rad
-
-

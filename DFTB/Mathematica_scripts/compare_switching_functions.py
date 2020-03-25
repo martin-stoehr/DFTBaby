@@ -23,4 +23,3 @@ plt.plot(approx_0p333[:,0], approx_0p333[:,1], color="green", ls="-.", lw=lw, la
 plt.legend()
 plt.savefig("comparison_gamma_lr_exact_approx.png")
 plt.show()
-

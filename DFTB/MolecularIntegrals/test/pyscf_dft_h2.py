@@ -50,7 +50,3 @@ H    G
 mf = dft.RKS(mol)
 mf.xc = 'pbe,pbe'
 mf.kernel()
-
-
-
-

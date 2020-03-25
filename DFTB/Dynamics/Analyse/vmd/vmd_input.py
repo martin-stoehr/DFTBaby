@@ -4,7 +4,7 @@ Create a tcl script that can be run in vmd as
 
   vmd -e vmd_input.tcl
 
-to visualize a trajectory. The dftbaby.cfg configuration file is read to determine which 
+to visualize a trajectory. The dftbaby.cfg configuration file is read to determine which
 atoms belong to the QM and MM parts.
 """
 
@@ -15,7 +15,7 @@ from DFTB.Dynamics.SurfaceHopping import MolecularDynamics
 if __name__ == "__main__":
     import sys
     import os.path
-    
+
     usage = "Usage: %s\n" % os.path.basename(sys.argv[0])
     usage += "  creates a tcl script called 'vmd_input.tcl' that allows to visualize the geometries of\n"
     usage += "  a DFTBaby dynamics simulation. The script should be run inside the folder where\n"
@@ -34,12 +34,12 @@ if __name__ == "__main__":
     (options,args) = parser.parse_args()
 
     # QM/MM partitioning
-    if options.has_key("qmmm_partitioning"):
+    if "qmmm_partitioning" in options:
         qm_indeces = eval(options["qmmm_partitioning"])
         qm_selection = "{" + "or".join(map(str, [" index %d " % (i-1) for i in qm_indeces])) + "}"
     else:
         qm_selection = "all"
-        
+
     #
 
     vmd_commands=r"""
@@ -73,7 +73,7 @@ foreach dynfile [glob dynamics*.xyz] {
     mol addrep top
     mol representation VDW 0.3 12
     mol addrep top
-    
+
     # hydrogen bonds
     mol selection all
     mol representation HBonds 3.0 20 1
@@ -85,10 +85,10 @@ proc renderMovie {} {
     set skip 100
     set num [molinfo top get numframes]
     for {set i 0} {$i < $num} {incr i $skip} {
-	puts $i
-	set filename snap.[format "%%06d" $i].rgb
-	render snapshot $filename
-	animate goto $i
+        puts $i
+        set filename snap.[format "%%06d" $i].rgb
+        render snapshot $filename
+        animate goto $i
     }
 }
 
@@ -101,4 +101,4 @@ proc renderMovie {} {
     fh.write(vmd_commands)
     fh.close()
 
-    print "VMD input script written to %s" % vmd_input
+    print(("VMD input script written to %s" % vmd_input))

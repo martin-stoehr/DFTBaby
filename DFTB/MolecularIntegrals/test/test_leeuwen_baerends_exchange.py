@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-compare libxc's implementation GGA_X_LB with my own for 
+compare libxc's implementation GGA_X_LB with my own for
 exponentially decaying densities of the type
 
     rho(r) = N exp(-a * r)
@@ -11,7 +11,7 @@ problems for large distances r and narrow densities (large alphas).
 van Leeuwen & Baerends proposed a correction to the xc-potential which
 recovers the correct asymptotic behaviour (Ref. [1]). The functional
 has the form
-                 1/3 
+                 1/3
    v  [rho] = rho    f(x)
     xc
            __
@@ -33,7 +33,7 @@ Reference
 ---------
 [1]  R. van Leeuwen and E. J. Baerends,
      "Exchange-correlation potential with correct asymptotic behavior",
-     Phys. Rev. A 49, 2421 
+     Phys. Rev. A 49, 2421
 """
 from DFTB.MolecularIntegrals.MulticenterIntegration import multicenter_integration, multicenter_gradient2, atomlist2arrays
 from DFTB.MolecularIntegrals import settings
@@ -47,10 +47,10 @@ if __name__ == "__main__":
     atomlist = [(1, (0.0, 0.0, 0.0))]
 
     # choose resolution of multicenter grids for bound orbitals
-    settings.radial_grid_factor = 120      # controls size of radial grid  
+    settings.radial_grid_factor = 120      # controls size of radial grid
     settings.lebedev_order = 25          # controls size of angular grid
 
-    
+
     plt.ylim((-10.0, 2.0))
     plt.title(r"exchange potential for $\rho(r) = N \exp(-\alpha r)$")
     plt.xlabel(r"distance r / bohr")
@@ -70,8 +70,8 @@ if __name__ == "__main__":
     # blows up.
     alphas = [0.1, 0.5, 1.0]
     for alpha in alphas:
-        print "density rho(r) = N*exp(-alpha*r) decays with exponential  alpha= %e" % alpha
-        # define density function 
+        print("density rho(r) = N*exp(-alpha*r) decays with exponential  alpha= %e" % alpha)
+        # define density function
         def rho(x,y,z):
             r = np.sqrt(x*x+y*y+z*z)
             n = np.exp(-alpha*r)
@@ -82,7 +82,7 @@ if __name__ == "__main__":
             nrm = alpha**3/(8.0*np.pi)
             return nrm * n
 
-        print "(grad rho)^2 ..."
+        print("(grad rho)^2 ...")
         # GGA xc-functionals need the gradient squared of the density
         #          __     2
         # sigma = (\/ rho)
@@ -107,9 +107,9 @@ if __name__ == "__main__":
         # LDA exchange
         xc_LDA = XCFunctionals.libXCFunctional("lda_x", "lda_c_xalpha")
         vx_LDA = xc_LDA.func_x.vxc(n.flatten(), s.flatten())
-        
+
         vx_LB = vx_LDA + vx_LB_correction
-        
+
         # libxc's implementation
         xc_LB = XCFunctionals.libXCFunctional("gga_x_lb", "lda_c_xalpha")
         # only exchange part
@@ -136,7 +136,7 @@ if __name__ == "__main__":
         # The exchange functional
         #
         #    v_x[rho] = - f(xi) / |r-<r>[rho]|
-        # 
+        #
         # has the asymptotic behaviour    v_x ---> -1/|r - <r>[rho]|
         # provided that f(chi) ---> 1 for chi ---> 0.
         # The functional also fulfills the scaling relation
@@ -151,10 +151,10 @@ if __name__ == "__main__":
         #                             = l/[l*r - <r>[rho]|
         #
         # The switching function f(chi) = exp(-omega * chi) satisfies
-        #   f(0) = 1   (large radii)   and 
+        #   f(0) = 1   (large radii)   and
         #   f(inf) = 0  (small radii)
         #
-        
+
         # expectation values <r^2>
         def integrand(x,y,z):
             r2 = x**2+y**2+z**2
@@ -166,14 +166,12 @@ if __name__ == "__main__":
                                 lebedev_order=settings.lebedev_order)
 
         dr = np.sqrt(dr2)
-        print "sqrt(<r^2>)= %e" % dr
-        
+        print("sqrt(<r^2>)= %e" % dr)
+
         omega = 100.0
         chi = dr/r
         fswitch = np.exp(-omega* chi)
         plt.plot(r, vx_LDA - fswitch / r, ls="--", color=l.get_color(), label=r"$v_{x}^{LDA}$ - $\exp(-\omega (\frac{\Delta r}{r})) \frac{1}{r}$")
-        
+
     plt.legend()
     plt.show()
-
-    

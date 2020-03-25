@@ -161,7 +161,7 @@ class cube2blender:
 	                        vec2=Mathutils.Vector(self.xyz.coord[j])
 	                        vec=vec2-vec1
 	                        distcovalent=covalentradii[self.xyz.atomtypes[i]]+covalentradii[self.xyz.atomtypes[j]]
-                                print "vec.length = %s  distcovalent = %s" % (vec.length, distcovalent)
+                                print("vec.length = %s  distcovalent = %s" % (vec.length, distcovalent))
 	                        if (vec.length-distcovalent)<=0.10*distcovalent:
 	                                me=Mesh.Primitives.Tube(32,stickradius,vec.length)
 		        		for face in me.faces:

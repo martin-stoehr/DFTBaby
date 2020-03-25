@@ -15,7 +15,7 @@ typedef struct {
 static void
 ForceField_dealloc(ForceField *self)
 {
-  self->ob_type->tp_free((PyObject*)self);
+  Py_TYPE(self)->tp_free((PyObject*)self);
   if (self->ff != NULL) {
     delete_force_field(self->ff);
   }

@@ -1,0 +1,8 @@
+DFTB/ForceField/ff.cpython-36m-x86_64-linux-gnu.so
+DFTB/Poisson/poisson_iterative.cpython-36m-x86_64-linux-gnu.so
+DFTB/extensions/cosmo.cpython-36m-x86_64-linux-gnu.so
+DFTB/extensions/grad.cpython-36m-x86_64-linux-gnu.so
+DFTB/extensions/mulliken.cpython-36m-x86_64-linux-gnu.so
+DFTB/extensions/slako.cpython-36m-x86_64-linux-gnu.so
+DFTB/extensions/tddftb.cpython-36m-x86_64-linux-gnu.so
+DFTB/extensions/thomson.cpython-36m-x86_64-linux-gnu.so

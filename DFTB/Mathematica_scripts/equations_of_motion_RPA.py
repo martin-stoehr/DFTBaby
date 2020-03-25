@@ -6,5 +6,4 @@ p,q,r,s = sympy.symbols("p q r s")
 Spq = Fd(p)*F(q)
 Srs = Fd(r)*F(s)
 com = Commutator(Spq, Srs)
-print com.doit()
-
+print(com.doit())

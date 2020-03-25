@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-This script demonstrates how to change the resolution of the multicenter 
+This script demonstrates how to change the resolution of the multicenter
 grid.
 """
 
@@ -14,7 +14,7 @@ if __name__ == "__main__":
     # increase radial grid
     settings.radial_grid_factor = 10
     settings.lebedev_order = 23
-    
+
     atomlist = [(6, (0,0,0))]
     basis = AtomicBasisSet(atomlist)
 
@@ -22,5 +22,4 @@ if __name__ == "__main__":
     for a,bfA in enumerate(basis.bfs):
         for b,bfB in enumerate(basis.bfs):
             t = kinetic(atomlist, bfA, bfB)
-            print "(%d|T|%d) = %e" % (a,b, t)
-    
+            print("(%d|T|%d) = %e" % (a,b, t))
