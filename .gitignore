@@ -2,6 +2,7 @@
 /dist
 /DFTBaby.egg-info
 /doc/build
+/lib
 # ignore data from repulsive potential fitting
 **/*.forces.xyz
 **/*.energies.xyz
